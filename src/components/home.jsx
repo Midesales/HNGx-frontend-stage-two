@@ -16,65 +16,63 @@ import instagram from '../assests/twitter.png'
 
 
 function Home() {
-   
-    const [movies, setMovies] = useState([]);
-    const [query, setQuery] = useState('');
-    const [errorMessage, setErrorMessage] = useState(false);
-    const [errorResult, setErrorResult] = useState(false);
-    const searchMovies = async(e) =>{
-      if (query === "") {
-        setErrorMessage(true);
-        setTimeout(() => {
-          setErrorMessage(false);
-        }, 1000);
-        return;
-      }
-      console.log("searching");
-      try {
-      
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorResult, setErrorResult] = useState(false);
 
-        const options = {
-          method: "GET",
-          url: "https://api.themoviedb.org/3/search/movie",
-          params: {
-            query: query,
-            include_adult: "false",
-            language: "en-US",
-            page: "1",
-          },
-          headers: {
-            accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZjJkY2M2YTZlODI5YzYyZjUxMzQwZTM4MDZkMzA2YSIsInN1YiI6IjY0ZmYwMDhlZmZjOWRlMGVlMjA4OGMyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PuuvxLaFScmMmH91o_hk3teLxjXh_VlyiOVmUcmqrB4",
-          },
-        };
-
-        axios
-          .request(options)
-          .then(function (response) {
-           
-          const movies = response.data.results;
-        if (movies.length === 0) {
-           setErrorResult(true);
-           setTimeout(() => {
-             setErrorResult(false);
-           }, 1000);
-        } else {
-          setMovies(movies);
-      }})
-          .catch(function (error) {
-            console.error('Error searching movies');
-          });
-      } catch (error) {
-        console.log(error);
-        console.log("Error searching movies");
-      }
+  //API SEARCH
+  const searchMovies = async (e) => {
+    if (query === "") {
+      setErrorMessage(true);
+      setTimeout(() => {
+        setErrorMessage(false);
+      }, 1000);
+      return;
     }
+    console.log("searching");
+    try {
+      const options = {
+        method: "GET",
+        url: "https://api.themoviedb.org/3/search/movie",
+        params: {
+          query: query,
+          include_adult: "false",
+          language: "en-US",
+          page: "1",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZjJkY2M2YTZlODI5YzYyZjUxMzQwZTM4MDZkMzA2YSIsInN1YiI6IjY0ZmYwMDhlZmZjOWRlMGVlMjA4OGMyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PuuvxLaFScmMmH91o_hk3teLxjXh_VlyiOVmUcmqrB4",
+        },
+      };
 
-    
- const changeHandler = (e) => {
-  setQuery(e.target.value)
- }
+      axios
+        .request(options)
+        .then(function (response) {
+          const movies = response.data.results;
+          if (movies.length === 0) {
+            setErrorResult(true);
+            setTimeout(() => {
+              setErrorResult(false);
+            }, 1000);
+          } else {
+            setMovies(movies);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error searching movies");
+        });
+    } catch (error) {
+      console.log(error);
+      console.log("Error searching movies");
+    }
+  };
+
+  const changeHandler = (e) => {
+    setQuery(e.target.value);
+  };
   return (
     <section className="h-full bg-white">
       <header
@@ -159,6 +157,7 @@ function Home() {
         </p>
       </footer>
     </section>
-  );}
+  );
+}
 
 export default Home

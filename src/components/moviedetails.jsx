@@ -24,22 +24,21 @@ function formatAsUTCDate(dateString) {
   return date.toUTCString();
 }
 
-
-
 function Moviedetails() {
   const [movie, setMovie] = useState({});
-  const [posterUrl, setPosterUrl] = useState('');
+  const [posterUrl, setPosterUrl] = useState("");
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
 
 
-const movieAdded = () => {
-  setShowModal(true);
-  setTimeout(() => {
-    setShowModal(false);
-  }, 1000);
-};
- 
+  //Adding movi to favourite
+  const movieAdded = () => {
+    setShowModal(true);
+    setTimeout(() => {
+      setShowModal(false);
+    }, 1000);
+  };
+
   useEffect(() => {
     axios
       .get(`${API_URL}${id}?api_key=${API_KEY}`)
@@ -53,10 +52,9 @@ const movieAdded = () => {
         }
       })
       .catch((error) => {
-        console.error('Error fetching movie details:', error);
+        console.error("Error fetching movie details:", error);
       });
   }, [id]);
- 
 
   return (
     <div className="overflow-y-auto h-screen rounded-lg bg-indigo-50 flex">
@@ -73,8 +71,8 @@ const movieAdded = () => {
           <h2 data-testid="movie-title" className="font-bold text-lg">
             Title: {movie.title}
           </h2>
-          <button onClick={movieAdded} className='hover:bg-yellow-200'>
-            <img src={star} alt="favourite" className = 'bg-white' />
+          <button onClick={movieAdded} className="hover:bg-yellow-200">
+            <img src={star} alt="favourite" className="bg-white" />
           </button>
         </div>
         <h4 data-testid="movie-runtime" className="text-[#9CA3AF]">
