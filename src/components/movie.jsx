@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const API_URL = 'https://api.themoviedb.org/3/movie/top_rated?api_key=8f2dcc6a6e829c62f51340e3806d306a';
 const API_images = 'https://image.tmdb.org/t/p/w200';
 
 const MovieBox = ({ movies, setMovies }) => {
   const [visibleMovies, setVisibleMovies] = useState(10);
   const [showAll, setShowAll] = useState(false);
+ 
 
   useEffect(() => {
     axios
@@ -26,9 +28,9 @@ const MovieBox = ({ movies, setMovies }) => {
   };
 
   return (
-    <div className="px-32 py-10">
+    <div className="px-10 md:py-10 lg:py-20">
       <div className="flex justify-between gap-1 items-center">
-        <h1 className="font-bold text-lg lg:text-4xl">Top Rated</h1>
+        <h1 className="font-bold text-lg lg:text-4xl ">Top Rated</h1>
         <button
           onClick={toggleMovies}
           className="text-[#BE123C] font-semibold  lg:text-lg flex items-center gap-1 lg:gap-3"
@@ -36,14 +38,14 @@ const MovieBox = ({ movies, setMovies }) => {
           See more <span className="lg:text-xl">&gt;</span>
         </button>
       </div>
-      <div className="grid px-24 md:grid-cols-3 lg:grid-cols-4 gap-y-6 content-stretch">
+      <div className="grid px-24 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
         {movies.slice(0, visibleMovies).map((movie) => {
           const { title, release_date, poster_path, id } = movie;
           return (
             <div
               key={movie.id}
               data-testid="movie-card"
-              className="grow text-middle pt-10"
+              className="text-middle pt-10"
             >
               <a href={`/movie/${id}`}>
                 <img
@@ -56,7 +58,7 @@ const MovieBox = ({ movies, setMovies }) => {
                   {title}
                 </h2>
                 <h4 data-testid="movie-release-date" className="text-[#9CA3AF]">
-                  Release Date: {release_date}
+                  {release_date}
                 </h4>
               </a>
             </div>

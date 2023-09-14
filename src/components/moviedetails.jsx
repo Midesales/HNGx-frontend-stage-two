@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
 import star from '../assests/Star.png'
-
+import play from '../assests/Play (1).png'
 
 
 const API_URL = 'https://api.themoviedb.org/3/movie/';
@@ -14,10 +14,10 @@ const API_images = 'https://image.tmdb.org/t/p/w200';
 
 
 
-
-function formatAsUTCDate(dateString) {
-  const date = new Date(dateString);
-  return date.toUTCString();
+const  formatAsUTCDate  = (dateString)  =>{
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', options);
 }
 
 function Moviedetails() {
@@ -42,9 +42,9 @@ function Moviedetails() {
         setMovie(response.data);
 
         // Construct the poster image URL
-        const posterPath = response.data.poster_path;
-        if (posterPath) {
-          setPosterUrl(`${API_images}${posterPath}`);
+        const backdropPath = response.data.backdrop_path;
+        if (backdropPath) {
+          setPosterUrl(`${API_images}${backdropPath}`);
         }
       })
       .catch((error) => {
@@ -59,31 +59,36 @@ function Moviedetails() {
         <h4 className="font-bold text-lg text-[#BE123C] p-2 flex items-center justify-center">
           {showModal && "Movie added to favourite"}
         </h4>
-        <div className="w-full ">
-          <img
-            data-testid="movie-poster"
-            src={posterUrl}
-            alt=""
-            className="object-fill w-full h-96 rounded-xl"
-          />
-        </div>
+        <div
+          style={{ backgroundImage: `url(${posterUrl})` }}
+          className="bg-cover bg-no-repeat min-h-[60vh] text-white flex flex-col items-center justify-center rounded-xl">
+            <img src = {play} alt="play" className='p-2 bg-white bg-opacity-50 rounded-full' />
+            <p className = 'font-bold text-lg p-2'>Watch Trailer</p>
+          </div>
         <div className="p-3">
           <div className="flex gap-10">
-            <h2 data-testid="movie-title" className="font-bold text-lg">
-              Title: {movie.title}
+            <h2 className="font-bold text-lg">
+              Title: <span data-testid="movie-title">{movie.title}</span>
             </h2>
             <button onClick={movieAdded} className="hover:bg-yellow-200">
               <img src={star} alt="favourite" className="bg-white" />
             </button>
           </div>
-          <h4 data-testid="movie-runtime" className="text-[#9CA3AF]">
-            Runtime: {movie.runtime}mins
+          <h4 className="text-[#9CA3AF]">
+            Runtime:
+            <span data-testid="movie-runtime">{movie.runtime}mins</span>
           </h4>
-          <h4 data-testid="movie-release-date" className="text-[#9CA3AF]">
-            Release Date (UTC): {formatAsUTCDate(movie.release_date)}
+          <h4 className="text-[#9CA3AF]">
+            Release Date (UTC):
+            <span data-testid="movie-release-date">
+              {formatAsUTCDate(movie.release_date)}
+            </span>
           </h4>
-          <h4 data-testid="movie-overview" className="font-bold">
-            Overview: <span className="font-semibold">{movie.overview}</span>
+          <h4 className="font-bold">
+            Overview:
+            <span data-testid="movie-overview" className="font-semibold">
+              {movie.overview}
+            </span>
           </h4>
         </div>
       </div>

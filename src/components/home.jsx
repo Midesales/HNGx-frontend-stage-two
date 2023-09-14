@@ -20,6 +20,7 @@ function Home() {
   const [query, setQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [errorResult, setErrorResult] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   //API SEARCH
   const searchMovies = async (e) => {
@@ -30,7 +31,7 @@ function Home() {
       }, 1000);
       return;
     }
-    console.log("searching");
+    setIsLoading(true);
     try {
       const options = {
         method: "GET",
@@ -47,7 +48,7 @@ function Home() {
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZjJkY2M2YTZlODI5YzYyZjUxMzQwZTM4MDZkMzA2YSIsInN1YiI6IjY0ZmYwMDhlZmZjOWRlMGVlMjA4OGMyZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PuuvxLaFScmMmH91o_hk3teLxjXh_VlyiOVmUcmqrB4",
         },
       };
-
+      
       axios
         .request(options)
         .then(function (response) {
@@ -67,8 +68,9 @@ function Home() {
     } catch (error) {
       console.log(error);
       console.log("Error searching movies");
-    }
-  };
+    }finally {
+    setIsLoading(false);
+  }}
 
   const changeHandler = (e) => {
     setQuery(e.target.value);
@@ -77,14 +79,14 @@ function Home() {
     <section className="h-full bg-white">
       <header
         style={{ backgroundImage: `url(${Poster})` }}
-        className="object-fit text-white h-fit"
+        className="object-fit text-white h-fit bg-no-repeat p-4"
       >
-        <div className="flex justify-start   lg:justify-between lg:px-20 pt-5 items-center">
-          <div className="flex items-center lg:gap-5">
+        <div className="flex flex-col gap-4 md:flex-row lg:flex-row   justify-between px-20 pt-5 items-center">
+          <div className="flex items-center gap-5">
             <img src={tv} alt="tv" />
             <h2>MovieBox</h2>
           </div>
-          <div className="relative shrink-0 flex border border-gray-300 rounded-lg items-center grow max-w-md focus:bg-slate-400">
+          <div className="relative flex border border-gray-300 rounded-lg items-center grow max-w-md focus:bg-slate-400">
             <input
               type="text"
               placeholder="What do you want to watch"
@@ -92,6 +94,11 @@ function Home() {
               name="query"
               value={query}
               onChange={changeHandler}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  searchMovies();
+                }
+              }}
             />
             <h4 className="absolute -bottom-10 left-10 py-1 px-2 ">
               {errorMessage && "Enter a value"}
@@ -100,7 +107,7 @@ function Home() {
               {errorResult && "No result found"}
             </h4>
             <button
-              onClick={searchMovies} 
+              onClick={searchMovies}
               className="absolute right-0 p-2 shrink ouline:none"
             >
               <img src={search} alt="search" className="" />
@@ -138,14 +145,28 @@ function Home() {
         </div>
       </header>
       <div>
-        <MovieBox movies={movies} setMovies={setMovies} />
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <MovieBox movies={movies} setMovies={setMovies} />
+        )}
       </div>
       <footer className="flex items-center flex-col">
         <div className="flex flex-col md:flex-row lg:flex-row justify-center pt-10 pb-8  gap-10">
-          <img src={facebook} alt="facebook" className="h-8 w-8" />
-          <img src={instagram} alt="twitter" className="h-8 w-8" />
-          <img src={twitter} alt="instagram" className="h-8 w-8" />
-          <img src={youtube} alt="youtube" className="h-8 w-8" />
+          <a href="https://www.facebook.com/ayomide.adeagbo.1">
+            <img src={facebook} alt="facebook" className="h-8 w-8" />
+          </a>
+          <a href="https://www.instagram.com/ayoade_mide">
+            <img src={instagram} alt="instagram" className="h-8 w-8" />
+          </a>
+          <a href="https://twitter.com/ayoade_mide">
+            <img src={twitter} alt="twitter" className="h-8 w-8" />
+          </a>
+          <a
+            href="https://www.youtube.com/channel/UCvbSUf0aqqwbkU8oUzH2iVw"
+          >
+            <img src={youtube} alt="youtube" className="h-8 w-8" />
+          </a>
         </div>
         <div className="text-[#111827] flex flex-col md:flex-row lg:flex-row  justify-center gap-8 font-bold ">
           <h2>Conditions of Use</h2>
@@ -153,7 +174,7 @@ function Home() {
           <h2>Press Room</h2>
         </div>
         <p className="flex justify-center text-[#111827] p-4">
-          &copy; 2021 MovieBox by Adriana Eka Prayudha
+          &copy; 2023 MovieBox by Adeagbo Ayomide
         </p>
       </footer>
     </section>

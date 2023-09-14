@@ -76,7 +76,7 @@ function Sidebar() {
       </div>
 
       {/* LARGE SCREENS */}
-      <div className="z-50 rounded-r-3xl rounded-b-3xl overflow-hidden md:flex lg:flex bg-white px-4  pr-6  h-screen flex-col border-r border-gray-200 pt-5 pb-4 ">
+      <div className="z-50 rounded-r-3xl rounded-b-3xl overflow-hidden hidden  md:flex lg:flex bg-white px-4  pr-6  h-full flex-col border-r border-gray-200 pt-5 pb-4 ">
         <div className="flex align-content-center m-2">
           <img
             className="w-10 p-1 place-self-center h-10 rounded-full bg-white"
