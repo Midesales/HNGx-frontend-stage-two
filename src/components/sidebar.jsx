@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import Home from '../assests/Home.png';
 import tv from '../assests/tv.png';
+import logout from '../assests/Logout.png';
+import calendar from '../assests/Calendar.png';
+import tvshow from '../assests/TV Show.png'
 import Movie from '../assests/Movie Projector.png';
 
 
@@ -13,7 +16,6 @@ function Sidebar() {
   const [toggleon, setToggleOn] = useState(false);
   return (
     <div>
-
       {/* //SMALL SCREENS */}
       <div className="absolute m-5 lg:hidden md:hidden">
         <button className="cursor-pointer" onClick={() => setToggleOn(true)}>
@@ -74,7 +76,7 @@ function Sidebar() {
       </div>
 
       {/* LARGE SCREENS */}
-      <div className="z-50 rounded-r-3xl rounded-b-3xl   hidden md:flex lg:flex bg-white px-4  pr-6  h-screen flex-col border-r border-gray-200 pt-5 pb-4 ">
+      <div className="z-50 rounded-r-3xl rounded-b-3xl overflow-hidden md:flex lg:flex bg-white px-4  pr-6  h-screen flex-col border-r border-gray-200 pt-5 pb-4 ">
         <div className="flex align-content-center m-2">
           <img
             className="w-10 p-1 place-self-center h-10 rounded-full bg-white"
@@ -86,11 +88,11 @@ function Sidebar() {
           </p>
         </div>
 
-        <div className="mt-5  flex-grow flex flex-col ">
+        <div className="  flex-grow flex flex-col ">
           <nav className="flex-1 px-2 py-8 space-y-1 " aria-label="Sidebar">
             <a
               href="/"
-              className="flex items-center pb-10 hover:bg-[#BE123C1A] hover:text-[#BE123C]"
+              className="flex items-center  hover:bg-[#BE123C1A] hover:text-[#BE123C]"
             >
               <img src={Home} alt="homelogo" className="p-4" />
               <span className="flex-1 hidden lg:flex md:flex">Home</span>
@@ -105,6 +107,27 @@ function Sidebar() {
             >
               <img src={Movie} alt="movielogo" className="p-4" />
               <span className="flex-1 hidden lg:flex md:flex">Movie</span>
+            </div>
+            <div className="flex items-center  hover:bg-[#BE123C1A] hover:text-[#BE123C]">
+              <img src={tvshow} alt="movielogo" className="p-4" />
+              <span className="flex-1 hidden lg:flex md:flex">TV Series</span>
+            </div>
+            <div className="flex items-center  hover:bg-[#BE123C1A] hover:text-[#BE123C]">
+              <img src={calendar} alt="movielogo" className="p-4" />
+              <span className="flex-1 hidden lg:flex md:flex">Upcoming</span>
+            </div>
+            <div className="flex flex-col text-sm rounded-lg  w-40 h-40 px-4 py-3 border-4 border-[#ebd7dcb2] items-center bg-[#BE123C1A] hover:text-[#BE123C]">
+              <p className="font-semibold pb-1">
+                Play movie quizes and earn free tickets
+              </p>
+              <p className="text-sm pb-1">50k people are playing now</p>
+              <button className="rounded-lg bg-[#BE123C33] text-[#BE123C]  py-1 px-2">
+                Start playing
+              </button>
+            </div>
+            <div className="flex items-center  hover:bg-[#BE123C1A] hover:text-[#BE123C]">
+              <img src={logout} alt="movielogo" className="p-4" />
+              <span className="flex-1 hidden lg:flex md:flex">Logout</span>
             </div>
           </nav>
         </div>

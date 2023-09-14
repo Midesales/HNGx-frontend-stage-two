@@ -13,11 +13,7 @@ const API_images = 'https://image.tmdb.org/t/p/w200';
 
 
 
-function convertMinutesToHoursAndMinutes(minutes) {
-  const hours = Math.floor(minutes / 60);
-  const remainingMinutes = minutes % 60;
-  return `${hours}h ${remainingMinutes}min`;
-}
+
 
 function formatAsUTCDate(dateString) {
   const date = new Date(dateString);
@@ -31,7 +27,7 @@ function Moviedetails() {
   const [showModal, setShowModal] = useState(false);
 
 
-  //Adding movi to favourite
+  //Adding movies to favourite
   const movieAdded = () => {
     setShowModal(true);
     setTimeout(() => {
@@ -59,32 +55,37 @@ function Moviedetails() {
   return (
     <div className="overflow-y-auto h-screen rounded-lg bg-indigo-50 flex">
       <Sidebar />
-      <div className="flex-grow w-full h-screen p-10">
+      <div className="flex-grow w-full h-screen p-10 md:p-4 lg:p-4">
         <h4 className="font-bold text-lg text-[#BE123C] p-2 flex items-center justify-center">
           {showModal && "Movie added to favourite"}
         </h4>
-        <div className="w-full">
-          <img src={posterUrl} alt="" className="object-fill" />
+        <div className="w-full ">
+          <img
+            data-testid="movie-poster"
+            src={posterUrl}
+            alt=""
+            className="object-fill w-full h-96 rounded-xl"
+          />
         </div>
-
-        <div className="flex gap-10">
-          <h2 data-testid="movie-title" className="font-bold text-lg">
-            Title: {movie.title}
-          </h2>
-          <button onClick={movieAdded} className="hover:bg-yellow-200">
-            <img src={star} alt="favourite" className="bg-white" />
-          </button>
+        <div className="p-3">
+          <div className="flex gap-10">
+            <h2 data-testid="movie-title" className="font-bold text-lg">
+              Title: {movie.title}
+            </h2>
+            <button onClick={movieAdded} className="hover:bg-yellow-200">
+              <img src={star} alt="favourite" className="bg-white" />
+            </button>
+          </div>
+          <h4 data-testid="movie-runtime" className="text-[#9CA3AF]">
+            Runtime: {movie.runtime}mins
+          </h4>
+          <h4 data-testid="movie-release-date" className="text-[#9CA3AF]">
+            Release Date (UTC): {formatAsUTCDate(movie.release_date)}
+          </h4>
+          <h4 data-testid="movie-overview" className="font-bold">
+            Overview: <span className="font-semibold">{movie.overview}</span>
+          </h4>
         </div>
-        <h4 data-testid="movie-runtime" className="text-[#9CA3AF]">
-          Runtime: {convertMinutesToHoursAndMinutes(movie.runtime)}
-        </h4>
-        <h4 data-testid="movie-release-date" className="text-[#9CA3AF]">
-          Release Date (UTC): {formatAsUTCDate(movie.release_date)}
-        </h4>
-        <h4 data-testid="movie-overview" className="font-bold">
-          Overview:
-          <span className="font-semibold">{movie.overview}</span>
-        </h4>
       </div>
     </div>
   );

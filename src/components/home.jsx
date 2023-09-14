@@ -100,7 +100,7 @@ function Home() {
               {errorResult && "No result found"}
             </h4>
             <button
-              onClick={searchMovies}
+              onClick={searchMovies} 
               className="absolute right-0 p-2 shrink ouline:none"
             >
               <img src={search} alt="search" className="" />

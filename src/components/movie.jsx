@@ -36,7 +36,7 @@ const MovieBox = ({ movies, setMovies }) => {
           See more <span className="lg:text-xl">&gt;</span>
         </button>
       </div>
-      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-y-6 content-stretch">
+      <div className="grid px-24 md:grid-cols-3 lg:grid-cols-4 gap-y-6 content-stretch">
         {movies.slice(0, visibleMovies).map((movie) => {
           const { title, release_date, poster_path, id } = movie;
           return (
