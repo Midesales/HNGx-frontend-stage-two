@@ -79,14 +79,14 @@ function Home() {
     <section className="h-full bg-white">
       <header
         style={{ backgroundImage: `url(${Poster})` }}
-        className="object-fit text-white h-fit bg-no-repeat p-4"
+        className="object-cover text-white bg-center h-fit bg-no-repeat p-4"
       >
-        <div className="flex flex-col gap-4 md:flex-row lg:flex-row   justify-between px-20 pt-5 items-center">
-          <div className="flex items-center gap-5">
+        <div className="flex flex-col gap-4 justify-between px-5  md:flex-row lg:flex-row pt-5 items-center">
+          <div className="flex items-center gap-2">
             <img src={tv} alt="tv" />
             <h2>MovieBox</h2>
           </div>
-          <div className="relative flex border border-gray-300 rounded-lg items-center grow max-w-md focus:bg-slate-400">
+          <div className="relative flex border border-gray-300 rounded-lg w-full md:max-w-md lg:max-lg: items-center grow focus:bg-slate-400">
             <input
               type="text"
               placeholder="What do you want to watch"
@@ -114,13 +114,13 @@ function Home() {
             </button>
           </div>
 
-          <div className="flex gap-5 items-center pr-10">
+          <div className="flex gap-2 items-center pr-5">
             <h2>Sign in</h2>
             <img src={menu} alt="" />
           </div>
         </div>
-        <div className="px-5 py-28 lg:px-20 flex flex-col">
-          <h1 className="flex flex-col text-4xl font-semibold ">
+        <div className="px-4 py-10 lg:px-20 flex flex-col">
+          <h1 className="flex flex-col lg:text-4xl font-semibold ">
             John Wick 3 : <span> Parabellum</span>
           </h1>
           <div className="flex gap-8 py-4">
@@ -133,7 +133,7 @@ function Home() {
               <p>97%</p>
             </div>
           </div>
-          <div className="w-72 text-sm">
+          <div className="md:w-72 lg:w-72 text-sm">
             John Wick is on the run after killing a member of the international
             assassins' guild, and with a $14 million price tag on his head, he
             is the target of hit men and women everywhere.

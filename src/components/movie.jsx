@@ -28,7 +28,7 @@ const MovieBox = ({ movies, setMovies }) => {
   };
 
   return (
-    <div className="px-10 md:py-10 lg:py-20">
+    <div className="px-10  py-5">
       <div className="flex justify-between gap-1 items-center">
         <h1 className="font-bold text-lg lg:text-4xl ">Top Rated</h1>
         <button
@@ -38,7 +38,7 @@ const MovieBox = ({ movies, setMovies }) => {
           See more <span className="lg:text-xl">&gt;</span>
         </button>
       </div>
-      <div className="grid px-24 md:grid-cols-3 lg:grid-cols-4 gap-y-6">
+      <div className="grid gap-2 md:grid-cols-3 lg:grid-cols-4  p-4 md:p-6 lg:px-24">
         {movies.slice(0, visibleMovies).map((movie) => {
           const { title, release_date, poster_path, id } = movie;
           return (
