@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Loading from "./loading";
 
 
 const API_URL = 'https://api.themoviedb.org/3/movie/top_rated?api_key=8f2dcc6a6e829c62f51340e3806d306a';
@@ -44,7 +44,7 @@ const MovieBox = ({ movies, setMovies,isLoading, setIsLoading }) => {
       </div>
       <div className="grid place-content-center gap-2 md:grid-cols-3 lg:grid-cols-4  p-4 md:p-6 lg:px-24">
         {isLoading ? (
-          <p className="font-bold text-4xl flex justify-center">Loading...</p>
+          <Loading />
         ) : (
           movies.slice(0, visibleMovies).map((movie) => {
           const { title, release_date, poster_path, id } = movie;

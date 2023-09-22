@@ -15,6 +15,8 @@ import instagram from '../assests/twitter.png'
 
 
 
+
+
 function Home() {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
@@ -24,9 +26,11 @@ function Home() {
 
   //API SEARCH
   const searchMovies = async (e) => {
+    setIsLoading(true);
     if (query === "") {
-      setIsLoading(false);
+      
       setErrorMessage(true);
+      setIsLoading(false);
       setTimeout(() => {
         setErrorMessage(false);
       }, 1000);
@@ -55,13 +59,16 @@ function Home() {
         .then(function (response) {
           const movies = response.data.results;
           if (movies.length === 0) {
-            setIsLoading(false)
+            
             setErrorResult(true);
             setTimeout(() => {
               setErrorResult(false);
             }, 1000);
           } else {
+             
             setMovies(movies);
+             setIsLoading(false);
+
           }
         })
         .catch(function (error) {
@@ -70,9 +77,7 @@ function Home() {
     } catch (error) {
       setIsLoading(false)
       console.log("Error searching movies");
-    }finally {
-    setIsLoading(false);
-  }}
+    }}
 
   const changeHandler = (e) => {
     setQuery(e.target.value);
@@ -83,16 +88,16 @@ function Home() {
         style={{ backgroundImage: `url(${Poster})` }}
         className="object-cover text-white bg-center h-fit bg-no-repeat p-4"
       >
-        <div className="flex flex-col py-4 px-5 gap-4 justify-between  lg:flex-row  items-center">
+        <div className="flex flex-col py-4 px-5 gap-4 justify-between md:flex-row lg:flex-row  items-center">
           <div className="flex items-center gap-2">
             <img src={tv} alt="tv" />
             <h2>MovieBox</h2>
           </div>
-          <div className="relative flex border border-gray-300 rounded-lg w-full max-w-md  items-center grow focus:bg-slate-400">
+          <div className="relative flex border border-gray-300 rounded-lg w-full max-w-sm lg:max-w-lg  items-center grow focus:bg-slate-400">
             <input
               type="text"
               placeholder="What do you want to watch"
-              className="grow bg-transparent outline-none p-2 "
+              className="grow bg-transparent outline-none p-2"
               name="query"
               value={query}
               onChange={changeHandler}
@@ -173,7 +178,7 @@ function Home() {
           <h2>Privacy & Policy</h2>
           <h2>Press Room</h2>
         </div>
-        <p className="flex justify-center text-[#111827] p-4">
+        <p className="flex justify-center text-[#111827] p-4 font-bold">
           &copy; 2023 MovieBox by Adeagbo Ayomide
         </p>
       </footer>
