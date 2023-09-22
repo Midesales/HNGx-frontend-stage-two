@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
+
 const API_URL = 'https://api.themoviedb.org/3/movie/top_rated?api_key=8f2dcc6a6e829c62f51340e3806d306a';
 const API_images = 'https://image.tmdb.org/t/p/w200';
 
-const MovieBox = ({ movies, setMovies }) => {
+const MovieBox = ({ movies, setMovies,isLoading, setIsLoading }) => {
   const [visibleMovies, setVisibleMovies] = useState(10);
   const [showAll, setShowAll] = useState(false);
+ 
  
 
   useEffect(() => {
     axios
+   
       .get(API_URL)
       .then((response) => {
         setMovies(response.data.results);
+        setIsLoading(false)
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
@@ -38,8 +42,11 @@ const MovieBox = ({ movies, setMovies }) => {
           See more <span className="lg:text-xl">&gt;</span>
         </button>
       </div>
-      <div className="grid gap-2 md:grid-cols-3 lg:grid-cols-4  p-4 md:p-6 lg:px-24">
-        {movies.slice(0, visibleMovies).map((movie) => {
+      <div className="grid place-content-center gap-2 md:grid-cols-3 lg:grid-cols-4  p-4 md:p-6 lg:px-24">
+        {isLoading ? (
+          <p className="font-bold text-4xl flex justify-center">Loading...</p>
+        ) : (
+          movies.slice(0, visibleMovies).map((movie) => {
           const { title, release_date, poster_path, id } = movie;
           return (
             <div
@@ -63,7 +70,9 @@ const MovieBox = ({ movies, setMovies }) => {
               </a>
             </div>
           );
-        })}
+        })
+        )}
+        
       </div>
     </div>
   );

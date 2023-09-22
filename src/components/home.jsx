@@ -20,18 +20,19 @@ function Home() {
   const [query, setQuery] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [errorResult, setErrorResult] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   //API SEARCH
   const searchMovies = async (e) => {
     if (query === "") {
+      setIsLoading(false);
       setErrorMessage(true);
       setTimeout(() => {
         setErrorMessage(false);
       }, 1000);
       return;
     }
-    setIsLoading(true);
+    
     try {
       const options = {
         method: "GET",
@@ -54,6 +55,7 @@ function Home() {
         .then(function (response) {
           const movies = response.data.results;
           if (movies.length === 0) {
+            setIsLoading(false)
             setErrorResult(true);
             setTimeout(() => {
               setErrorResult(false);
@@ -66,7 +68,7 @@ function Home() {
           console.error("Error searching movies");
         });
     } catch (error) {
-      console.log(error);
+      setIsLoading(false)
       console.log("Error searching movies");
     }finally {
     setIsLoading(false);
@@ -81,12 +83,12 @@ function Home() {
         style={{ backgroundImage: `url(${Poster})` }}
         className="object-cover text-white bg-center h-fit bg-no-repeat p-4"
       >
-        <div className="flex flex-col gap-4 justify-between px-5  md:flex-row lg:flex-row pt-5 items-center">
+        <div className="flex flex-col py-4 px-5 gap-4 justify-between  lg:flex-row  items-center">
           <div className="flex items-center gap-2">
             <img src={tv} alt="tv" />
             <h2>MovieBox</h2>
           </div>
-          <div className="relative flex border border-gray-300 rounded-lg w-full md:max-w-md lg:max-lg: items-center grow focus:bg-slate-400">
+          <div className="relative flex border border-gray-300 rounded-lg w-full max-w-md  items-center grow focus:bg-slate-400">
             <input
               type="text"
               placeholder="What do you want to watch"
@@ -114,7 +116,7 @@ function Home() {
             </button>
           </div>
 
-          <div className="flex gap-2 items-center pr-5">
+          <div className="flex gap-2 items-center">
             <h2>Sign in</h2>
             <img src={menu} alt="" />
           </div>
@@ -145,14 +147,12 @@ function Home() {
         </div>
       </header>
       <div>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <MovieBox movies={movies} setMovies={setMovies} />
-        )}
+        
+          <MovieBox movies={movies} setMovies={setMovies} isLoading={isLoading} setIsLoading={setIsLoading} />
+        
       </div>
       <footer className="flex items-center flex-col">
-        <div className="flex flex-col md:flex-row lg:flex-row justify-center pt-10 pb-8  gap-10">
+        <div className="flex flex-row justify-center pt-10 pb-8  gap-10">
           <a href="https://www.facebook.com/ayomide.adeagbo.1">
             <img src={facebook} alt="facebook" className="h-8 w-8" />
           </a>

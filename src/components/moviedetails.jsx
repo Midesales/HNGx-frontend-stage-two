@@ -61,7 +61,7 @@ function Moviedetails() {
         </h4>
         <div
           style={{ backgroundImage: `url(${posterUrl})` }}
-          className="bg-cover bg-no-repeat min-h-[60vh] text-white flex flex-col items-center justify-center rounded-xl">
+          className="bg-cover bg-center bg-no-repeat min-h-[60vh] text-white flex flex-col items-center justify-center rounded-xl">
             <img src = {play} alt="play" className='p-2 bg-white bg-opacity-50 rounded-full' />
             <p className = 'font-bold text-lg p-2'>Watch Trailer</p>
           </div>
